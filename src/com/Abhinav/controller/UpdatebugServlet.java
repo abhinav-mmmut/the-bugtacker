@@ -12,36 +12,32 @@ import javax.servlet.http.HttpServletResponse;
 import com.Abhinav.dao.BugDao;
 import com.Abhinav.model.Bug;
 
-/**
- * Servlet implementation class EditbugServlet
- */
-@WebServlet("/update")
-public class UpdatebugServlet extends HttpServlet {
+@WebServlet("/create")
+public class CreatebugServlet extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id=Integer.parseInt(request.getParameter("id"));
-		BugDao bugdao=new BugDao();
-		Bug bug=bugdao.getbug(id);
-		request.setAttribute("bug", bug);
-		request.getRequestDispatcher("Updatebugdetails.jsp").forward(request, response);
-	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("addbugservlet");
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-		if(request.getSession().getAttribute("username")==null){
+		if (request.getSession().getAttribute("username") == null) {
 			request.getRequestDispatcher("Login.jsp").forward(request, response);
 		}
-		int id=Integer.parseInt(request.getParameter("id"));
-		String bugname=request.getParameter("bugname");
-		String bugdetails=request.getParameter("bugdetails");
-		String employee=request.getParameter("employee");
-		if(id==0 || bugname.equals("") || bugdetails.equals("") || employee.equals(""))
-			{request.getRequestDispatcher("Addbugdetails.jsp").forward(request, response);return;}
-		BugDao bugdao= new BugDao();
-		bugdao.updatebug(id,bugname,bugdetails,employee);
-		ArrayList<Bug> al=bugdao.show();
-		//request.setAttribute("name","Abhinav");
-		request.setAttribute("list",al);
+		String id_s = request.getParameter("id");
+		String bugname = request.getParameter("bugname");
+		String bugdetails = request.getParameter("bugdetails");
+		String employee = request.getParameter("employee");
+		if (id_s.equals("") || bugname.equals("") || bugdetails.equals("") || employee.equals("")) {
+			request.getRequestDispatcher("Addbugdetails.jsp").forward(request, response);
+			return;
+		}
+		int id = 0;
+		if (!id_s.equals(""))
+			id = Integer.parseInt(id_s);
+		BugDao bugdao = new BugDao();
+		bugdao.addbug(id, bugname, bugdetails, employee);
+		ArrayList<Bug> al = bugdao.show();
+		request.setAttribute("list", al);
 		request.getRequestDispatcher("Bugs.jsp").forward(request, response);
 	}
+
 }
