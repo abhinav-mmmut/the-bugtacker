@@ -39,7 +39,7 @@
 
 		<ul class="nav navbar-nav">
 			<li><a href="welcome.jsp">Home</a></li>
-			<li><a href="showbugs">Bugs</a></li>
+			<li><a href="read">Bugs</a></li>
 			<li class="active"><a href="#">Add Bug details</a></li>
 			
 		</ul>
@@ -68,7 +68,7 @@
 	</div>
 
 	<footer class="footer">
-		<p style="margin-left: 10px">Copyright © by Abhinav</p>
+		<p style="margin-left: 10px">Copyright Â© by Abhinav</p>
 	</footer>
 
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
